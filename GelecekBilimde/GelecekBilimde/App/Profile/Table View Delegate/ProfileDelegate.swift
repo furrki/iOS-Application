@@ -8,9 +8,6 @@
 
 import UIKit
 import SafariServices
-import FirebaseAuth
-import GoogleSignIn
-
 
 final class ProfileDataSourceAndDelegate: NSObject, UITableViewDataSource, UITableViewDelegate {
     
@@ -48,9 +45,7 @@ final class ProfileDataSourceAndDelegate: NSObject, UITableViewDataSource, UITab
                                           .init(type: .spotify, name: "Spotify", imageName: "spotifyIcon"),
                                           .init(type: .header, name: "Geliştirici Bilgileri", imageName: ""),
                                           .init(type: .developerInfo, name: "Alperen Ünal", imageName: "developerIcon"),
-                                          .init(type: .developerInfo, name: "Barış Uyar", imageName: "developerIcon"),
-                                          .init(type: .header, name: "", imageName: ""),
-                                          .init(type: .signOut, name: "Çıkış Yap", imageName: "logoutIcon")]
+                                          .init(type: .developerInfo, name: "Barış Uyar", imageName: "developerIcon")]
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int { profileItemList.count }
     
@@ -98,8 +93,6 @@ final class ProfileDataSourceAndDelegate: NSObject, UITableViewDataSource, UITab
             } else {
                 openSiteOnSafari(url: "https://barisuyar.com/about/")
             }
-        case .signOut:
-            signOut()
         default:
             print("error")
         }
@@ -125,12 +118,5 @@ final class ProfileDataSourceAndDelegate: NSObject, UITableViewDataSource, UITab
         } else {
             return false
         }
-    }
-    
-    private func signOut() {
-        try? Auth.auth().signOut()
-        GIDSignIn.sharedInstance()?.signOut()
-        CurrentUser.clearCurrentUser()
-        currentVC.dismiss(animated: true)
     }
 }

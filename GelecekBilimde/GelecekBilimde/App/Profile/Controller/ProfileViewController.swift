@@ -7,19 +7,16 @@
 //
 
 import UIKit
-import FirebaseAuth
-import GoogleSignIn
 import SDWebImage
 import SafariServices
 
 final class ProfileViewController: UIViewController {
-    
-    @IBOutlet private weak var userImageView: UIImageView!
-    @IBOutlet private weak var usernameLabel: UILabel!
+    // MARK: - Properties
     @IBOutlet private weak var tableView: UITableView!
     
     private var profileDataSourceAndDelegate: ProfileDataSourceAndDelegate!
-    
+
+	// MARK: - Methods
     override func viewDidLoad() {
         super.viewDidLoad()
         profileDataSourceAndDelegate = ProfileDataSourceAndDelegate(vc: self)
@@ -37,15 +34,5 @@ extension ProfileViewController {
         //Set table view delegate and data source
         tableView.delegate = profileDataSourceAndDelegate
         tableView.dataSource = profileDataSourceAndDelegate
-        //Set view controller
-        userImageView.layer.cornerRadius = userImageView.bounds.height / 2
-        userImageView.clipsToBounds = true
-        userImageView.layer.borderColor = UIColor.white.cgColor
-        userImageView.layer.borderWidth = 1
-        usernameLabel.text = CurrentUser.currentUser.name
-        if CurrentUser.currentUser.photoURL != "" {
-            guard let url = URL(string: CurrentUser.currentUser.photoURL) else { return }
-            userImageView.sd_setImage(with: url)
-        }
     }
 }

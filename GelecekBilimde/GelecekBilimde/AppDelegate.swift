@@ -13,7 +13,6 @@ import UserNotifications
 import FirebaseMessaging
 import Siren
 import SafariServices
-import FirebaseAuth
 
 @UIApplicationMain
 class AppDelegate: UIResponder {
@@ -61,7 +60,6 @@ extension AppDelegate: UIApplicationDelegate {
         setRealm()
         FirebaseApp.configure()
         setTabbarCostumuzation()
-        setUserAgentForGoogleSignIn()
 
         let attributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
         if #available(iOS 13.0, *) {
@@ -155,11 +153,6 @@ extension AppDelegate {
         } else {
             UITabBar.appearance().barTintColor = .barTintColor
         }
-    }
-    
-    func setUserAgentForGoogleSignIn() {
-        let dictionary = NSDictionary(object: "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2228.0 Safari/537.36", forKey: "UserAgent" as NSCopying)
-        UserDefaults.standard.register(defaults: dictionary as! [String : Any])
     }
     
     func getTopMostViewController() -> UIViewController? {

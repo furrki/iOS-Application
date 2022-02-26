@@ -11,7 +11,12 @@ import RealmSwift
 import FirebaseDatabase
 
 final class ArticleViewModel {
-    
+	// MARK: - Constants
+	private enum Constants {
+		static let bannedWord = "COVID"
+	}
+
+	// MARK: - Properties
     let realm = try! Realm()
     var articlesCache: Results<ArticleCache>?
     var articles = [Article]()
@@ -19,7 +24,8 @@ final class ArticleViewModel {
     var selectedCategory: ArticleCategory?
     var currentpage = 1
     var selectedDate: Date?
-    
+
+	// MARK: - Methods
     func loadArticlesCache() {
         guard let categoryId = selectedCategory?.category.rawValue else {
             guard let date = selectedDate else {
@@ -54,6 +60,8 @@ final class ArticleViewModel {
 
 				let articles = (articles ?? []).filter { article in
 					!(article.categories?.contains(.covid) ?? false)
+						&& !(article.content?.rendered?.contains(Constants.bannedWord) ?? false)
+						&& !(article.title?.rendered?.contains(Constants.bannedWord) ?? false)
 				}
 
                 if self.selectedCategory != nil {
